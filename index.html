@@ -10,10 +10,27 @@
       margin: 0;
       height: 100vh;
       background: linear-gradient(135deg, #fde2e4, #fbcfe8);
+      overflow: hidden;
       display: flex;
       align-items: center;
       justify-content: center;
       font-family: "Segoe UI", sans-serif;
+    }
+
+    /* Falling hearts */
+    .heart {
+      position: fixed;
+      top: -20px;
+      font-size: 20px;
+      animation: fall linear forwards;
+      pointer-events: none;
+    }
+
+    @keyframes fall {
+      to {
+        transform: translateY(110vh);
+        opacity: 0;
+      }
     }
 
     .card {
@@ -25,6 +42,7 @@
       max-width: 420px;
       width: 90%;
       position: relative;
+      z-index: 2;
     }
 
     h1 {
@@ -32,9 +50,10 @@
       margin-bottom: 0.4rem;
     }
 
-    p {
+    .subtitle {
       color: #6b7280;
-      margin-bottom: 1.8rem;
+      margin-bottom: 2rem;
+      font-size: 0.95rem;
     }
 
     .buttons {
@@ -46,12 +65,12 @@
     }
 
     button {
-      padding: 0.7rem 1.6rem;
-      font-size: 1rem;
+      padding: 0.7rem 1.4rem;
+      font-size: 0.95rem;
       border-radius: 999px;
       border: none;
       cursor: pointer;
-      position: relative;
+      white-space: nowrap;
     }
 
     #yesBtn {
@@ -62,7 +81,9 @@
 
     #noBtn {
       background: #e5e7eb;
+      color: #374151;
       position: absolute;
+      transition: transform 0.15s ease;
     }
 
     img {
@@ -77,46 +98,58 @@
       font-size: 1.1rem;
       margin-top: 0.5rem;
     }
-
-    .no-message {
-      margin-top: 1rem;
-      font-size: 0.95rem;
-      color: #ef4444;
-      min-height: 1.2em;
-      transition: opacity 0.2s ease;
-    }
   </style>
 </head>
 
 <body>
   <div class="card" id="mainCard">
     <h1>My Love, will you be my Valentine? 💕</h1>
-    <p>Choose wisely 😏</p>
+    <div class="subtitle">
+      Choose wisely. (The “No” button is a little shy 😜)
+    </div>
 
     <div class="buttons">
       <button id="yesBtn">YES</button>
       <button id="noBtn">NO</button>
     </div>
-
-    <div class="no-message" id="noMessage"></div>
   </div>
 
   <script>
+    /* Falling hearts */
+    const heartEmojis = ["💖", "💕", "💗", "💘", "💝"];
+
+    setInterval(() => {
+      const heart = document.createElement("div");
+      heart.className = "heart";
+      heart.textContent =
+        heartEmojis[Math.floor(Math.random() * heartEmojis.length)];
+      heart.style.left = Math.random() * 100 + "vw";
+      heart.style.animationDuration = Math.random() * 3 + 3 + "s";
+      heart.style.fontSize = Math.random() * 10 + 16 + "px";
+
+      document.body.appendChild(heart);
+
+      setTimeout(() => {
+        heart.remove();
+      }, 6000);
+    }, 400);
+
+    /* NO button messages */
+    const messages = [
+      "think again 🤔",
+      "please no 😭",
+      "this could be a mistake",
+      "don’t do this to me 💔",
+      "my heart can’t take this 💕",
+      "are you sure?? 😢",
+      "last chance 😳",
+      "be kind to me 🥺",
+      "love is knocking 💖"
+    ];
+
     const noBtn = document.getElementById("noBtn");
     const yesBtn = document.getElementById("yesBtn");
     const card = document.getElementById("mainCard");
-    const messageBox = document.getElementById("noMessage");
-
-    const messages = [
-      "Think Again 🤔",
-      "Please No 😭",
-      "Don’t do this to me 💔",
-      "My heart can’t take this 💕",
-      "Are you sure?? 😢",
-      "Last chance 😳",
-      "Be kind to me 🥺",
-      "Love is knocking 💖"
-    ];
 
     noBtn.addEventListener("mouseover", () => {
       const x = Math.random() * 240 - 120;
@@ -125,7 +158,7 @@
 
       const randomMessage =
         messages[Math.floor(Math.random() * messages.length)];
-      messageBox.textContent = randomMessage;
+      noBtn.textContent = randomMessage;
     });
 
     yesBtn.addEventListener("click", () => {
