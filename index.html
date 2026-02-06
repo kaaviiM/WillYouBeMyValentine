@@ -24,6 +24,7 @@
       box-shadow: 0 25px 45px rgba(0, 0, 0, 0.15);
       max-width: 420px;
       width: 90%;
+      position: relative;
     }
 
     h1 {
@@ -41,6 +42,7 @@
       justify-content: center;
       gap: 1rem;
       position: relative;
+      height: 60px;
     }
 
     button {
@@ -49,6 +51,7 @@
       border-radius: 999px;
       border: none;
       cursor: pointer;
+      position: relative;
     }
 
     #yesBtn {
@@ -74,6 +77,14 @@
       font-size: 1.1rem;
       margin-top: 0.5rem;
     }
+
+    .no-message {
+      margin-top: 1rem;
+      font-size: 0.95rem;
+      color: #ef4444;
+      min-height: 1.2em;
+      transition: opacity 0.2s ease;
+    }
   </style>
 </head>
 
@@ -86,17 +97,35 @@
       <button id="yesBtn">YES</button>
       <button id="noBtn">NO</button>
     </div>
+
+    <div class="no-message" id="noMessage"></div>
   </div>
 
   <script>
     const noBtn = document.getElementById("noBtn");
     const yesBtn = document.getElementById("yesBtn");
     const card = document.getElementById("mainCard");
+    const messageBox = document.getElementById("noMessage");
+
+    const messages = [
+      "Think Again 🤔",
+      "Please No 😭",
+      "Don’t do this to me 💔",
+      "My heart can’t take this 💕",
+      "Are you sure?? 😢",
+      "Last chance 😳",
+      "Be kind to me 🥺",
+      "Love is knocking 💖"
+    ];
 
     noBtn.addEventListener("mouseover", () => {
       const x = Math.random() * 240 - 120;
       const y = Math.random() * 120 - 60;
       noBtn.style.transform = `translate(${x}px, ${y}px)`;
+
+      const randomMessage =
+        messages[Math.floor(Math.random() * messages.length)];
+      messageBox.textContent = randomMessage;
     });
 
     yesBtn.addEventListener("click", () => {
@@ -112,4 +141,3 @@
   </script>
 </body>
 </html>
-
