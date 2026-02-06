@@ -1,35 +1,129 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>My Valentine💞</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <title>My Valentine💖</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
   <style>
     body {
-      font-family: Arial, sans-serif;
-      background: #0f172a;
-      color: #e5e7eb;
+      margin: 0;
+      height: 100vh;
+      background: linear-gradient(135deg, #fde2e4, #fbcfe8);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: "Segoe UI", sans-serif;
+      overflow: hidden;
+    }
+
+    .card {
+      background: #fff;
+      padding: 2.5rem 3rem;
+      border-radius: 20px;
+      text-align: center;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+      max-width: 420px;
+      width: 90%;
+      position: relative;
+    }
+
+    h1 {
+      margin: 0 0 0.5rem;
+      font-size: 1.9rem;
+      color: #111827;
+    }
+
+    p {
+      color: #6b7280;
+      font-size: 0.95rem;
+      margin-bottom: 2rem;
+    }
+
+    .buttons {
       display: flex;
       justify-content: center;
-      align-items: center;
-      height: 100vh;
-      margin: 0;
+      gap: 1rem;
+      position: relative;
     }
-    .card {
-      background: #020617;
-      padding: 2rem 3rem;
-      border-radius: 12px;
+
+    button {
+      padding: 0.7rem 1.6rem;
+      font-size: 1rem;
+      border-radius: 999px;
+      border: none;
+      cursor: pointer;
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    #yesBtn {
+      background: #ef4444;
+      color: white;
+      box-shadow: 0 10px 20px rgba(239, 68, 68, 0.4);
+    }
+
+    #yesBtn:hover {
+      transform: scale(1.05);
+    }
+
+    #noBtn {
+      background: #f3f4f6;
+      color: #374151;
+      position: absolute;
+    }
+
+    .hearts {
+      position: absolute;
+      bottom: -20px;
+      width: 100%;
       text-align: center;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+      font-size: 1.2rem;
+      opacity: 0.6;
     }
-    h1 { margin-bottom: 0.5rem; }
-    p { color: #94a3b8; }
   </style>
 </head>
+
 <body>
   <div class="card">
-    <h1>Hello 👋</h1>
-    <p>This page is hosted using GitHub Pages.</p>
+    <h1>Kaavii, will you be my Valentine? 💕</h1>
+    <p>Choose wisely. (The “No” button is a little shy 😜)</p>
+
+    <div class="buttons">
+      <button id="yesBtn">YES</button>
+      <button id="noBtn">NO</button>
+    </div>
+
+    <div class="hearts">💗 💕 💖 💞 💓</div>
   </div>
+
+  <script>
+    const noBtn = document.getElementById("noBtn");
+    const yesBtn = document.getElementById("yesBtn");
+
+    noBtn.addEventListener("mouseover", () => {
+      const x = Math.random() * 250 - 125;
+      const y = Math.random() * 120 - 60;
+      noBtn.style.transform = `translate(${x}px, ${y}px)`;
+    });
+
+    yesBtn.addEventListener("click", () => {
+      document.body.innerHTML = `
+        <div style="
+          height:100vh;
+          display:flex;
+          align-items:center;
+          justify-content:center;
+          background:linear-gradient(135deg,#fbcfe8,#fde2e4);
+          font-family:'Segoe UI',sans-serif;
+          text-align:center;">
+          <div>
+            <h1 style="font-size:2.2rem;">YAY!!! 💖💖💖</h1>
+            <p style="font-size:1.1rem;">I knew you’d say YES 😘</p>
+            <p style="font-size:1.4rem;">Happy Valentine’s Day ❤️</p>
+          </div>
+        </div>
+      `;
+    });
+  </script>
 </body>
 </html>
