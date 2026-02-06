@@ -14,30 +14,26 @@
       align-items: center;
       justify-content: center;
       font-family: "Segoe UI", sans-serif;
-      overflow: hidden;
     }
 
     .card {
-      background: #fff;
+      background: #f8fafc;
       padding: 2.5rem 3rem;
-      border-radius: 20px;
+      border-radius: 24px;
       text-align: center;
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+      box-shadow: 0 25px 45px rgba(0, 0, 0, 0.15);
       max-width: 420px;
       width: 90%;
-      position: relative;
     }
 
     h1 {
-      margin: 0 0 0.5rem;
-      font-size: 1.9rem;
-      color: #111827;
+      font-size: 2rem;
+      margin-bottom: 0.4rem;
     }
 
     p {
       color: #6b7280;
-      font-size: 0.95rem;
-      margin-bottom: 2rem;
+      margin-bottom: 1.8rem;
     }
 
     .buttons {
@@ -53,7 +49,6 @@
       border-radius: 999px;
       border: none;
       cursor: pointer;
-      transition: transform 0.15s ease, box-shadow 0.15s ease;
     }
 
     #yesBtn {
@@ -62,68 +57,59 @@
       box-shadow: 0 10px 20px rgba(239, 68, 68, 0.4);
     }
 
-    #yesBtn:hover {
-      transform: scale(1.05);
-    }
-
     #noBtn {
-      background: #f3f4f6;
-      color: #374151;
+      background: #e5e7eb;
       position: absolute;
     }
 
-    .hearts {
-      position: absolute;
-      bottom: -20px;
+    img {
       width: 100%;
-      text-align: center;
-      font-size: 1.2rem;
-      opacity: 0.6;
+      max-width: 260px;
+      margin: 1.2rem auto;
+      display: block;
+      border-radius: 16px;
+    }
+
+    .love {
+      font-size: 1.1rem;
+      margin-top: 0.5rem;
     }
   </style>
 </head>
 
 <body>
-  <div class="card">
-    <h1>Kaavii, will you be my Valentine? 💕</h1>
-    <p>Choose wisely. (The “No” button is a little shy 😜)</p>
+  <div class="card" id="mainCard">
+    <h1>My Love, will you be my Valentine? 💕</h1>
+    <p>Choose wisely 😏</p>
 
     <div class="buttons">
       <button id="yesBtn">YES</button>
       <button id="noBtn">NO</button>
     </div>
-
-    <div class="hearts">💗 💕 💖 💞 💓</div>
   </div>
 
   <script>
     const noBtn = document.getElementById("noBtn");
     const yesBtn = document.getElementById("yesBtn");
+    const card = document.getElementById("mainCard");
 
     noBtn.addEventListener("mouseover", () => {
-      const x = Math.random() * 250 - 125;
+      const x = Math.random() * 240 - 120;
       const y = Math.random() * 120 - 60;
       noBtn.style.transform = `translate(${x}px, ${y}px)`;
     });
 
     yesBtn.addEventListener("click", () => {
-      document.body.innerHTML = `
-        <div style="
-          height:100vh;
-          display:flex;
-          align-items:center;
-          justify-content:center;
-          background:linear-gradient(135deg,#fbcfe8,#fde2e4);
-          font-family:'Segoe UI',sans-serif;
-          text-align:center;">
-          <div>
-            <h1 style="font-size:2.2rem;">YAY!!! 💖💖💖</h1>
-            <p style="font-size:1.1rem;">I knew you’d say YES 😘</p>
-            <p style="font-size:1.4rem;">Happy Valentine’s Day ❤️</p>
-          </div>
-        </div>
+      card.innerHTML = `
+        <h1>💖 YAY!!! 💖</h1>
+        <p>Best decision ever 😘</p>
+
+        <img src="Hugging.gif" alt="Hugging gif" />
+
+        <div class="love">I love you ❤️</div>
       `;
     });
   </script>
 </body>
 </html>
+
