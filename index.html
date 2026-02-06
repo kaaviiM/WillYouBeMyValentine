@@ -36,9 +36,8 @@
     /* Confetti */
     .confetti {
       position: fixed;
-      width: 8px;
-      height: 8px;
-      background-color: red;
+      width: 10px;
+      height: 10px;
       animation: confetti-fall 3s linear forwards;
       z-index: 999;
     }
@@ -52,38 +51,43 @@
 
     .card {
       background: #f8fafc;
-      padding: 2.5rem 3rem;
-      border-radius: 24px;
+      padding: 3.5rem 4.5rem;
+      border-radius: 28px;
       text-align: center;
-      box-shadow: 0 25px 45px rgba(0, 0, 0, 0.15);
-      max-width: 420px;
+      box-shadow: 0 30px 60px rgba(0, 0, 0, 0.2);
+      max-width: 620px;
       width: 90%;
+      min-height: 420px;
       position: relative;
       z-index: 5;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
     }
 
     h1 {
-      font-size: 2rem;
-      margin-bottom: 0.4rem;
+      font-size: 2.6rem;
+      margin-bottom: 0.8rem;
     }
 
     .subtitle {
       color: #6b7280;
-      margin-bottom: 2rem;
-      font-size: 0.95rem;
+      margin-bottom: 3rem;
+      font-size: 1.1rem;
     }
 
     .buttons {
       display: flex;
       justify-content: center;
-      gap: 1rem;
+      gap: 1.5rem;
       position: relative;
-      height: 70px;
+      height: 90px;
+      margin-top: 1rem;
     }
 
     button {
-      padding: 0.7rem 1.4rem;
-      font-size: 0.95rem;
+      padding: 1rem 2.4rem;
+      font-size: 1.15rem;
       border-radius: 999px;
       border: none;
       cursor: pointer;
@@ -93,13 +97,13 @@
     #yesBtn {
       background: #ef4444;
       color: white;
-      box-shadow: 0 0 20px rgba(239, 68, 68, 0.8);
-      animation: pulse 1.5s infinite;
+      box-shadow: 0 0 28px rgba(239, 68, 68, 0.8);
+      animation: pulse 1.4s infinite;
     }
 
     @keyframes pulse {
       0% { transform: scale(1); }
-      50% { transform: scale(1.08); }
+      50% { transform: scale(1.1); }
       100% { transform: scale(1); }
     }
 
@@ -108,19 +112,36 @@
       color: #374151;
       position: absolute;
       transition: transform 0.15s ease, font-size 0.15s ease;
+      font-size: 1.05rem;
     }
 
     img {
       width: 100%;
-      max-width: 260px;
-      margin: 1.2rem auto;
+      max-width: 360px;
+      margin: 2rem auto 1rem;
       display: block;
-      border-radius: 16px;
+      border-radius: 20px;
     }
 
     .love {
-      font-size: 1.1rem;
-      margin-top: 0.5rem;
+      font-size: 1.4rem;
+      margin-top: 1rem;
+    }
+
+    /* Mobile tweak */
+    @media (max-width: 600px) {
+      .card {
+        padding: 2.5rem 2rem;
+        min-height: auto;
+      }
+
+      h1 {
+        font-size: 2rem;
+      }
+
+      img {
+        max-width: 260px;
+      }
     }
   </style>
 </head>
@@ -140,7 +161,6 @@
 
   <script>
     const heartEmojis = ["💖", "💕", "💗", "💘", "💝"];
-    let heartSpeed = 600;
 
     function createHeart() {
       const heart = document.createElement("div");
@@ -148,14 +168,13 @@
       heart.textContent =
         heartEmojis[Math.floor(Math.random() * heartEmojis.length)];
       heart.style.left = Math.random() * 100 + "vw";
-      heart.style.fontSize = Math.random() * 12 + 16 + "px";
-      heart.style.animationDuration = Math.random() * 3 + 3 + "s";
-
+      heart.style.fontSize = Math.random() * 14 + 20 + "px";
+      heart.style.animationDuration = Math.random() * 3 + 4 + "s";
       document.body.appendChild(heart);
-      setTimeout(() => heart.remove(), 6000);
+      setTimeout(() => heart.remove(), 7000);
     }
 
-    setInterval(() => createHeart(), heartSpeed);
+    setInterval(createHeart, 300);
 
     const messages = [
       "think again 🤔",
@@ -176,25 +195,23 @@
     let shrink = 1;
 
     noBtn.addEventListener("mouseover", () => {
-      const x = Math.random() * 260 - 130;
-      const y = Math.random() * 140 - 70;
+      const x = Math.random() * 300 - 150;
+      const y = Math.random() * 160 - 80;
       noBtn.style.transform = `translate(${x}px, ${y}px) scale(${shrink})`;
 
       shrink -= 0.05;
-      if (shrink < 0.6) shrink = 0.6;
+      if (shrink < 0.65) shrink = 0.65;
 
       noBtn.textContent =
         messages[Math.floor(Math.random() * messages.length)];
-
-      heartSpeed = 200;
     });
 
     yesBtn.addEventListener("click", () => {
-      for (let i = 0; i < 120; i++) {
+      for (let i = 0; i < 150; i++) {
         const confetti = document.createElement("div");
         confetti.className = "confetti";
         confetti.style.left = Math.random() * 100 + "vw";
-        confetti.style.backgroundColor =
+        confetti.style.background =
           heartEmojis[Math.floor(Math.random() * heartEmojis.length)];
         document.body.appendChild(confetti);
         setTimeout(() => confetti.remove(), 3000);
@@ -202,7 +219,7 @@
 
       card.innerHTML = `
         <h1>💖 YAY!!! 💖</h1>
-        <p>Best decision ever 😘</p>
+        <p style="font-size:1.3rem;">Best decision ever 😘</p>
         <img src="Hugging.gif" alt="Hugging gif" />
         <div class="love">I love you ❤️</div>
       `;
