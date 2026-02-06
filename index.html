@@ -21,14 +21,31 @@
     .heart {
       position: fixed;
       top: -20px;
-      font-size: 20px;
       animation: fall linear forwards;
       pointer-events: none;
+      z-index: 1;
     }
 
     @keyframes fall {
       to {
         transform: translateY(110vh);
+        opacity: 0;
+      }
+    }
+
+    /* Confetti */
+    .confetti {
+      position: fixed;
+      width: 8px;
+      height: 8px;
+      background-color: red;
+      animation: confetti-fall 3s linear forwards;
+      z-index: 999;
+    }
+
+    @keyframes confetti-fall {
+      to {
+        transform: translateY(110vh) rotate(720deg);
         opacity: 0;
       }
     }
@@ -42,7 +59,7 @@
       max-width: 420px;
       width: 90%;
       position: relative;
-      z-index: 2;
+      z-index: 5;
     }
 
     h1 {
@@ -61,7 +78,7 @@
       justify-content: center;
       gap: 1rem;
       position: relative;
-      height: 60px;
+      height: 70px;
     }
 
     button {
@@ -76,14 +93,21 @@
     #yesBtn {
       background: #ef4444;
       color: white;
-      box-shadow: 0 10px 20px rgba(239, 68, 68, 0.4);
+      box-shadow: 0 0 20px rgba(239, 68, 68, 0.8);
+      animation: pulse 1.5s infinite;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.08); }
+      100% { transform: scale(1); }
     }
 
     #noBtn {
       background: #e5e7eb;
       color: #374151;
       position: absolute;
-      transition: transform 0.15s ease;
+      transition: transform 0.15s ease, font-size 0.15s ease;
     }
 
     img {
@@ -115,26 +139,24 @@
   </div>
 
   <script>
-    /* Falling hearts */
     const heartEmojis = ["💖", "💕", "💗", "💘", "💝"];
+    let heartSpeed = 600;
 
-    setInterval(() => {
+    function createHeart() {
       const heart = document.createElement("div");
       heart.className = "heart";
       heart.textContent =
         heartEmojis[Math.floor(Math.random() * heartEmojis.length)];
       heart.style.left = Math.random() * 100 + "vw";
+      heart.style.fontSize = Math.random() * 12 + 16 + "px";
       heart.style.animationDuration = Math.random() * 3 + 3 + "s";
-      heart.style.fontSize = Math.random() * 10 + 16 + "px";
 
       document.body.appendChild(heart);
+      setTimeout(() => heart.remove(), 6000);
+    }
 
-      setTimeout(() => {
-        heart.remove();
-      }, 6000);
-    }, 400);
+    setInterval(() => createHeart(), heartSpeed);
 
-    /* NO button messages */
     const messages = [
       "think again 🤔",
       "please no 😭",
@@ -151,23 +173,37 @@
     const yesBtn = document.getElementById("yesBtn");
     const card = document.getElementById("mainCard");
 
-    noBtn.addEventListener("mouseover", () => {
-      const x = Math.random() * 240 - 120;
-      const y = Math.random() * 120 - 60;
-      noBtn.style.transform = `translate(${x}px, ${y}px)`;
+    let shrink = 1;
 
-      const randomMessage =
+    noBtn.addEventListener("mouseover", () => {
+      const x = Math.random() * 260 - 130;
+      const y = Math.random() * 140 - 70;
+      noBtn.style.transform = `translate(${x}px, ${y}px) scale(${shrink})`;
+
+      shrink -= 0.05;
+      if (shrink < 0.6) shrink = 0.6;
+
+      noBtn.textContent =
         messages[Math.floor(Math.random() * messages.length)];
-      noBtn.textContent = randomMessage;
+
+      heartSpeed = 200;
     });
 
     yesBtn.addEventListener("click", () => {
+      for (let i = 0; i < 120; i++) {
+        const confetti = document.createElement("div");
+        confetti.className = "confetti";
+        confetti.style.left = Math.random() * 100 + "vw";
+        confetti.style.backgroundColor =
+          heartEmojis[Math.floor(Math.random() * heartEmojis.length)];
+        document.body.appendChild(confetti);
+        setTimeout(() => confetti.remove(), 3000);
+      }
+
       card.innerHTML = `
         <h1>💖 YAY!!! 💖</h1>
         <p>Best decision ever 😘</p>
-
         <img src="Hugging.gif" alt="Hugging gif" />
-
         <div class="love">I love you ❤️</div>
       `;
     });
